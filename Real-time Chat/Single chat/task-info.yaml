@@ -285,6 +285,12 @@ files:
 - name: resources/static/send-message-btn.png
   visible: true
   learner_created: true
+- name: resources/static/logic.js
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24559#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Tue, 04 Jul 2023 23:14:58 UTC"
 record: 2

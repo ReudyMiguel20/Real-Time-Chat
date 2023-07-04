@@ -259,6 +259,173 @@ files:
         }
     }
   learner_created: false
+- name: resources/static/index.html
+  visible: true
+  text: |-
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <script src="https://kit.fontawesome.com/f2f28d363d.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat</title>
+    </head>
+
+    <body>
+    <div id="title-section">
+        <h1 class="messenger-title">Messenger</h1><h3 class="messenger-title-description">chat with others online</h3>
+    </div>
+
+    <div id="chatbox">
+        <div id="messages">
+
+        </div>
+
+        <div id="input-message">
+            <input type="text" id="input-msg" placeholder="Type a message">
+            <button id="send-msg-btn" onclick="getMessage()"><img src="send-message-btn.png" alt=""></button>
+        </div>
+    </div>
+
+    <script src="logic.js"></script>
+    </body>
+
+    </html>
+  learner_created: true
+- name: resources/static/style.css
+  visible: true
+  text: |-
+    body {
+        background-color: lightgrey;
+    }
+
+    #chatbox {
+        display: flex;
+        flex-direction: column;
+        border-style: solid;
+        width: 600px;
+        height: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow-y: scroll;
+    }
+
+    #input-message {
+        margin-top: auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #input-msg {
+        position: relative;
+        width: 95%;
+    }
+
+    #send-msg-btn {
+        border: none;
+        padding: 0px;
+        background: none;
+    }
+
+    #send-msg-btn:hover {
+        color: yellow;
+    }
+
+    button:active {
+        color: yellow;
+    }
+
+    #messages {
+        overflow-y: scroll;
+    }
+
+    #title-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .messenger-title {
+        color: rgb(224, 9, 9);
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: bold;
+    }
+
+    .messenger-title-description {
+        margin-left: 5px;
+        color: blue;
+        font-size: larger;
+        font-style: italic;
+    }
+  learner_created: true
+- name: resources/static/logic.js
+  visible: true
+  text: |
+    //Variable for chatbox
+    let chatbox = document.getElementById("chatbox");
+
+    //Variable for Messages container
+    let messageContainer = document.getElementById("messages");
+
+    //Variable to manage the button
+    let buttonSend = document.getElementById("send-msg-btn");
+
+    //Variable for the input text
+    let messageInput = document.getElementById("input-msg");
+
+    //Grab the text inside the input text and return it
+    function getMessage() {
+        let message = messageInput.value;
+
+        return message;
+    }
+
+    //Function to create a div with id message to put it inside the messages container,
+    //it will contain text that was previously on the input text
+    function sendMessage() {
+        const messageSent = document.createElement("div");
+        const horizontalLine = document.createElement("hr");
+
+        //Assigning the message value to the messageSent and changing some values to the text
+        messageSent.textContent = getMessage();
+        messageSent.style.padding = "5px";
+        messageSent.style.fontFamily = "Comic Sans MS";
+        messageSent.scrollIntoView({"behavior": "smooth"});
+
+        messageSent.setAttribute("class", "message");
+
+        //If the message is empty, cancel everything and dont add it to the chat
+        if (messageSent.textContent == "") {
+            return;
+        }
+
+        messageContainer.appendChild(messageSent);
+        messageContainer.appendChild(horizontalLine);
+    }
+
+    //To clear the text from the input text - where the messages are written
+    function clearInputText() {
+        messageInput.value="";
+    }
+
+    //Scroll to bottom
+    function scrollToBottom() {
+       messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+
+    //Create an event on click that involves the button and updating the message to the div
+    //with id= 'messages'
+    buttonSend.addEventListener("click", function () {
+        sendMessage();
+        clearInputText();
+        scrollToBottom();
+    })
+  learner_created: true
+- name: resources/static/send-message-btn.png
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24560#comment
 status: Unchecked
 record: -1

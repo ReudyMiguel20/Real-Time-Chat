@@ -1,14 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/f2f28d363d.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
 </head>
+
 <body>
-<p>lemao</p>
+<div id="chatbox">
+    <div id="messages">
+
+    </div>
+
+    <div id="input-message">
+        <input type="text" id="input-msg" placeholder="Type a message">
+        <button id="send-msg-btn" onclick="getMessage()"><img src="send-message-btn.png" alt=""></button>
+    </div>
+</div>
+
+<script src="logic.js"></script>
 </body>
+
 </html>

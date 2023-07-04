@@ -6,7 +6,8 @@ import org.hyperskill.hstest.testcase.CheckResult;
 import org.junit.After;
 import org.junit.Before;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -19,6 +20,7 @@ public class ChatTests extends SpringTest {
     final static Random random = new Random();
     final static Pattern overflowPattern = Pattern.compile("^(auto|scroll)$");
     final static int TIMEOUT = 10_000;
+    final static int NUM_OF_MESSAGES = 7;
     final static String URL = "http://localhost:28852";
     final static String TITLE = "Chat";
 
@@ -28,14 +30,16 @@ public class ChatTests extends SpringTest {
     final static String MESSAGE_CLASS_SELECTOR = ".message";
     final static String INCORRECT_OR_MISSING_TITLE_TAG_ERR = "tag \"title\" should have correct text";
 
-    final String[] RANDOM_MESSAGES = Stream
+    final static String[] RANDOM_MESSAGES = Stream
             .generate(ChatTests::generateRandomMessage)
-            .limit(5)
+            .limit(NUM_OF_MESSAGES)
             .toArray(String[]::new);
+
+    final static List<String> sentMessages = new ArrayList<>();
 
     Playwright playwright;
     Browser browser;
-    Page page;
+    List<Page> pages = new ArrayList<>();
 
     @Before
     public void initBrowser() {
@@ -45,8 +49,8 @@ public class ChatTests extends SpringTest {
                 new BrowserType
                         .LaunchOptions()
                         .setHeadless(false)
-                        .setTimeout(1000 * 120)
-                        .setSlowMo(15));
+//                        .setSlowMo(15)
+                        .setTimeout(1000 * 120));
     }
 
     @After
@@ -57,6 +61,12 @@ public class ChatTests extends SpringTest {
     }
 
     // Helper functions
+    static Page openNewPage(String url, Browser browser, int defaultTimeout) {
+        Page page = browser.newContext().newPage();
+        page.navigate(url);
+        page.setDefaultTimeout(defaultTimeout);
+        return page;
+    }
 
     static String generateRandomMessage() {
         return "Test message " + random.nextInt();
@@ -66,38 +76,85 @@ public class ChatTests extends SpringTest {
 
     @DynamicTest
     DynamicTesting[] dt = new DynamicTesting[]{
-            () -> testInitAndOpenPage(URL),
+            () -> {
+                pages.add(openNewPage(URL, browser, TIMEOUT));
+                return correct();
+            },
+            () -> testShouldContainProperTitle(pages.get(0), TITLE),
+            () -> {
+                pages.add(openNewPage(URL, browser, TIMEOUT));
+                return correct();
+            },
+            () -> testShouldContainProperTitle(pages.get(1), TITLE),
 
-            () -> testShouldContainProperTitle(page, TITLE),
+            // --- TESTS WITH TWO USERS
+            // message 0
+            () -> testFillInputField(pages.get(0), RANDOM_MESSAGES[0], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[0]);
+                return testPressBtn(pages.get(0), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
+            // message 1
+            () -> testFillInputField(pages.get(1), RANDOM_MESSAGES[1], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[1]);
+                return testPressBtn(pages.get(1), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            // message 2
+            () -> testFillInputField(pages.get(0), RANDOM_MESSAGES[2], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[2]);
+                return testPressBtn(pages.get(0), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
+            // message 3
+            () -> testFillInputField(pages.get(1), RANDOM_MESSAGES[3], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[3]);
+                return testPressBtn(pages.get(1), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            // message 4
+            () -> testFillInputField(pages.get(0), RANDOM_MESSAGES[4], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[4]);
+                return testPressBtn(pages.get(0), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
 
-            () -> testFillInputField(page, RANDOM_MESSAGES[0], INPUT_MSG_ID_SELECTOR),
-            () -> testPressBtn(page, SEND_MSG_BTN_ID_SELECTOR),
-            () -> testUserMessagesShouldHaveProperStructureAndContent(page, Arrays.copyOf(RANDOM_MESSAGES, 1)),
+            // --- TESTS WITH THREE USERS
+            () -> {
+                pages.add(openNewPage(URL, browser, TIMEOUT));
+                return correct();
+            },
 
-            () -> testFillInputField(page, RANDOM_MESSAGES[1], INPUT_MSG_ID_SELECTOR),
-            () -> testPressBtn(page, SEND_MSG_BTN_ID_SELECTOR),
-            () -> testUserMessagesShouldHaveProperStructureAndContent(page, Arrays.copyOf(RANDOM_MESSAGES, 2)),
+            // message 5
+            () -> testFillInputField(pages.get(2), RANDOM_MESSAGES[5], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[5]);
+                return testPressBtn(pages.get(2), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(2), sentMessages.subList(sentMessages.size() - 1, sentMessages.size())),
 
-            () -> testFillInputField(page, RANDOM_MESSAGES[2], INPUT_MSG_ID_SELECTOR),
-            () -> testPressBtn(page, SEND_MSG_BTN_ID_SELECTOR),
-            () -> testUserMessagesShouldHaveProperStructureAndContent(page, Arrays.copyOf(RANDOM_MESSAGES, 3)),
-
-            () -> testFillInputField(page, RANDOM_MESSAGES[3], INPUT_MSG_ID_SELECTOR),
-            () -> testPressBtn(page, SEND_MSG_BTN_ID_SELECTOR),
-            () -> testUserMessagesShouldHaveProperStructureAndContent(page, Arrays.copyOf(RANDOM_MESSAGES, 4)),
-
-            () -> testFillInputField(page, RANDOM_MESSAGES[4], INPUT_MSG_ID_SELECTOR),
-            () -> testPressBtn(page, SEND_MSG_BTN_ID_SELECTOR),
-            () -> testUserMessagesShouldHaveProperStructureAndContent(page, Arrays.copyOf(RANDOM_MESSAGES, 5)),
+            // message 6
+            () -> testFillInputField(pages.get(2), RANDOM_MESSAGES[6], INPUT_MSG_ID_SELECTOR),
+            () -> {
+                sentMessages.add(RANDOM_MESSAGES[6]);
+                return testPressBtn(pages.get(2), SEND_MSG_BTN_ID_SELECTOR);
+            },
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(0), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(1), sentMessages),
+            () -> testUserMessagesShouldHaveProperStructureAndContent(pages.get(2), sentMessages.subList(sentMessages.size() - 2, sentMessages.size())),
     };
-
-    CheckResult testInitAndOpenPage(String url) {
-        page = browser.newContext().newPage();
-        page.navigate(url);
-        page.setDefaultTimeout(TIMEOUT);
-
-        return correct();
-    }
 
     CheckResult testShouldContainProperTitle(Page page, String title) {
         return title.equals(page.title()) ? correct() : wrong(INCORRECT_OR_MISSING_TITLE_TAG_ERR);
@@ -122,18 +179,18 @@ public class ChatTests extends SpringTest {
         }
     }
 
-    CheckResult testUserMessagesShouldHaveProperStructureAndContent(Page page, String[] sentMessages) {
+    CheckResult testUserMessagesShouldHaveProperStructureAndContent(Page page, List<String> sentMessages) {
         Locator allMessagesLocator = page.locator(MESSAGES_ID_SELECTOR).locator(MESSAGE_CLASS_SELECTOR);
 
         try {
             assertThat(page.locator(MESSAGES_ID_SELECTOR)).hasCSS("overflow-y", overflowPattern);
-            assertThat(allMessagesLocator).hasCount(sentMessages.length);
+            assertThat(allMessagesLocator).hasCount(sentMessages.size());
 
-            for (int i = 0; i < sentMessages.length; i++) {
+            for (int i = 0; i < sentMessages.size(); i++) {
                 Locator messageLocator = allMessagesLocator.nth(i);
 
                 assertThat(messageLocator).isVisible();
-                assertThat(messageLocator).hasText(sentMessages[i]);
+                assertThat(messageLocator).hasText(sentMessages.get(i));
             }
 
             return correct();
