@@ -1,0 +1,34 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>In this stage, implement sending and receiving private messages. When, for example, <code class="java">user A</code> sends a message to <code class="java">user B</code> only these two users should see the message. Furthermore, after a user clicks on a username in the user list, the message container should be refilled with messages if these users have already chatted.</p>
+<h5 id="theory">Theory</h5>
+<p>This <a href="https://www.youtube.com/watch?v=o_IjEDAuo8Y&amp;t=930s" rel="noopener noreferrer nofollow" target="_blank">Realtime Chatroom application - SpringBoot, Websocket, ReactJS</a> video by InvolveInInnovation shows how to send a message to a specific user.</p>
+<h5 id="objectives">Objectives</h5>
+<ul>
+<li>Allow users to send private messages. The <code class="java">send</code> message button should work differently, depending on which chat is opened. If a public chat is opened, the button should send a public message. If a private chat is opened between two users, after a message is sent only these two users should receive the message;</li>
+<li>After the current user opens a private chat, fill the message container with the messages if the users have already chatted.</li>
+</ul>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1:</strong> <em>after the first user inputs username "A user" and enters the chat</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat" height="459" name="image.png" src="https://ucarecdn.com/82e6db69-b2e5-499c-b3c5-0ce28d5efed1/" width="729"/></p>
+<p><strong>Example 2: </strong><em>after user A sends a message</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat message" height="460" name="image.png" src="https://ucarecdn.com/df457c26-102d-4f4f-92c5-a6ee58836f13/" width="731"/></p>
+<p><strong>Example 3: </strong><em>after the second user inputs username "B user" and opens the chat</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat message list" height="465" name="image.png" src="https://ucarecdn.com/c8f159d5-1d66-4a48-a4cf-38da93eed222/" width="736"/></p>
+<p><strong>Example 4: </strong><em>after user B presses on "A user" in the user list</em></p>
+<p style="text-align: center;"><img alt="java websockets private chat" height="464" name="image.png" src="https://ucarecdn.com/172f2e41-ea03-4c6c-b8bb-6f4a78da049b/" width="734"/></p>
+<p><strong>Example 5: </strong><em>after user B sends a private message to user A</em></p>
+<p><em>A user:</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat user message" height="464" name="image.png" src="https://ucarecdn.com/4e20845b-0eec-4dca-987b-4b10b00afecb/" width="735"/></p>
+<p><em>B user:</em></p>
+<p style="text-align: center;"><img alt="java websockets private chat user message" height="454" name="image.png" src="https://ucarecdn.com/f92255ca-1a83-4d35-8673-4c2a21b1f93c/" width="718"/></p>
+<p><strong>Example 6: </strong><em>after user A switches from public chat to private chat with "B user" by pressing the username in the user list</em></p>
+<p style="text-align: center;"><img alt="java websockets private chat select user" height="458" name="image.png" src="https://ucarecdn.com/3154b16b-1cfc-4fc3-958b-a44a8815c0d5/" width="722"/></p>
+<p><strong>Example 7: </strong><em>after user A sends a private message to user B</em></p>
+<p><em>A user:</em></p>
+<p style="text-align: center;"><img alt="java websockets private chat message list" height="459" name="image.png" src="https://ucarecdn.com/b8926ba7-5154-4f55-80ff-bddcb9e30d33/" width="726"/></p>
+<p><em>B user:</em></p>
+<p style="text-align: center;"><img alt="java websockets private chat message list" height="458" name="image.png" src="https://ucarecdn.com/a2ff842e-835f-4fee-bba9-d0d8d6830126/" width="726"/></p>
+<p><strong>Example 8: </strong><em>after the third user inputs username "C user" and presses on "A user" in the user list</em></p>
+<p style="text-align: center;"><img alt="java websockets private chat" height="461" name="image.png" src="https://ucarecdn.com/9d2c08a5-74fb-4013-8204-32822ba4851b/" width="732"/></p>
+</div>

@@ -1,0 +1,41 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>In this stage, use JavaScript and add more CSS styles. After completing the stage, the app will support one user that can send messages to themselves.</p>
+<p>Make the message container scrollable to properly handle multiple messages and implement a mechanism that automatically scrolls the message container when a new message is received.</p>
+<h5 id="theory">Theory</h5>
+<p>To complete this stage, know how to create tags with JavaScript and insert them on a page. Here is the code snippet that shows you how to create a tag using JavaScript and add it to an already created container:</p>
+<pre><code class="language-java">const container = document.getElementById("container")
+
+// create new div tag
+const tag = document.createElement("div")
+// add text to the tag
+tag.textContent = "some text"
+// add class "test" to the div
+tag.classList.add("test")
+// insert created tag at the end of the existing container
+container.appendChild(tag)</code></pre>
+<p>Here is a <a href="https://www.javascripttutorial.net/javascript-dom/javascript-createelement/" rel="noopener noreferrer nofollow" target="_blank">JavaScript tutorial</a> if you want to learn more about this feature.</p>
+<p>Furthermore, if the container is scrollable and was full before appending a new element to it, the new element will not be visible. To see it, you will need to scroll. We can implement auto-scrolling with JS. Here is a simple code snippet that shows how to scroll to an element with a "smooth" effect.</p>
+<pre><code class="language-java">tag.scrollIntoView({"behavior": "smooth"}) </code></pre>
+<p>You can find more details <a href="https://www.javascripttutorial.net/javascript-dom/javascript-scrollintoview/" rel="noopener noreferrer nofollow" target="_blank">JavaScript tutorial</a> on <code class="language-java">scrollIntoView</code>.</p>
+<p>Please don't hesitate to experiment with these features.</p>
+<h5 id="objectives">Objectives</h5>
+<ul>
+<li>Remove the hardcoded messages that were added in the previous stage. Now, when a user inputs a message in the text field and presses the send button, a new tag that contains the input message with the <code class="language-java">message</code> class should be created and appear in the tag with the <code class="language-java">messages</code> ID. For example, initially, there are no messages and <code class="language-java">&lt;div id="messages"&gt;&lt;/div&gt;</code> has no content, but after inputting a new message <code class="language-java">some text...</code> in the text field and pressing the button the container should look something like this: <code class="language-java">&lt;div id="messages"&gt;&lt;div class="message"&gt;some text..&lt;/div&gt;&lt;/div&gt;</code> (as mentioned in the previous stage there can be some intermediate elements);</li>
+<li>A new message should be placed below the already received messages;</li>
+<li>If the text field was empty when a user pressed the button, the button should do nothing, and an element with the <code class="language-java">message</code> class should not be created and inserted into the message container;</li>
+<li>After a user presses the send button, the input field should become empty;</li>
+<li>Make the element with the <code class="language-java">messages</code> ID scrollable by setting the CSS property <code class="language-java">overflow-y</code> to <code class="language-java">auto</code> or <code class="language-java">scroll</code> and implement a mechanism that automatically scrolls the message container when a new message is inserted into it. To better understand what to do at this step, implement all the previous steps, run the program, and input plenty of messages.</li>
+</ul>
+<p>Optional:</p>
+<ul>
+<li>Add more CSS styles if you like. For example, check whether your app properly handles multi-line messages. Tests won't check this.</li>
+</ul>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1: </strong><em>the initial page could look something like this</em></p>
+<p style="text-align: center;"><img alt="java websockets chat blank page" height="580" name="image.png" src="https://ucarecdn.com/f55b75b6-1370-48ab-81c1-a4ddc11d8475/" width="716"/></p>
+<p><strong>Example 2: </strong><em>after inputting the first message and pressing the send button</em></p>
+<p style="text-align: center;"><img alt="java websockets chat message" height="580" name="image.png" src="https://ucarecdn.com/877d9c65-dd35-45bc-ad72-16586f352c8b/" width="719"/></p>
+<p><strong>Example 3: </strong><em>after inputting the second message and pressing the send button</em></p>
+<p style="text-align: center;"><img alt="java websockets chat messages" height="577" name="image.png" src="https://ucarecdn.com/12e2ea37-f646-4d1b-b9a6-b46dfb3006d8/" width="713"/></p>
+</div>

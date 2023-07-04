@@ -1,0 +1,38 @@
+body {
+    background-color: lightgrey;
+}
+
+#chatbox {
+    display: flex;
+    flex-direction: column;
+
+    border-style: solid;
+    width: 600px;
+    height: 400px;
+
+}
+
+#input-message {
+    margin-top: auto;
+    display: flex;
+    flex-wrap:wrap;
+}
+
+#input-msg {
+    position: relative;
+    width: 95%;
+}
+
+#send-msg-btn {
+    border: none;
+    padding: 0px;
+    background: none;
+}
+
+#send-msg-btn:hover {
+    color: yellow;
+}
+
+button:active {
+    color: yellow;
+}

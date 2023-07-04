@@ -1,0 +1,27 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>In this stage, continue to implement the private chat — allow users to switch between chats. A click on a user in the user list should open a chat with that user. Group chat will remain, but it will be hidden under a button.</p>
+<p>Moreover, to make it clear, what chat is opened — public or private, add a new element that will show the currently opened chat. The element will contain the text <code class="java">Public chat</code> if a public chat is opened or a username of a user with which a private chat was opened.</p>
+<h5 id="theory">Theory</h5>
+<p>The article <a href="https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript" rel="noopener noreferrer nofollow" target="_blank">Remove all child elements of a DOM node in JavaScript</a> on Stack Overflow shows how to clear a container with elements using JS.</p>
+<h5 id="objectives">Objectives</h5>
+<ul>
+<li>Make users in the user list clickable. When a user in the user container is clicked, the component with an <code class="java">messages</code> ID should become empty (all messages should be removed);</li>
+<li>Add a new button with the <code class="java">public-chat-btn</code> ID. If the current chat is private, the element with the <code class="java">messages</code> ID should be cleared and refilled with public messages after the button is clicked. If the current chat is public, the button should do nothing;</li>
+<li>The page should have a new tag with the <code class="java">chat-with</code> ID that indicates which chat is opened. The component text should change when a user opens a private or a public chat. When public chat is opened, the component text should be <code class="java">Public chat</code>. And If private chat is opened, the element should contain the name of the user with which private chat is opened.</li>
+<li>After a login, open the public chat by default. The <code class="java">chat-with</code> tag should contain <code class="java">Public chat</code> and a click on send button sends a public message;</li>
+<li>When a public message is received, it should only be added to the message container when the public chat is opened. For example, If <code class="java">user A</code> opens a chat with <code class="java">user B</code>, and <code class="java">user B</code> sends a public message, this public message should not appear in the opened chat of <code class="java">A</code> and <code class="java">B</code>, and should only appear in all opened public chats;</li>
+<li>Optionally, add some styles. For example, the hover effect for users in the user list.</li>
+</ul>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1:</strong> <em>after the first user inputs username "A user" and enters the chat</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat" height="459" name="image.png" src="https://ucarecdn.com/82e6db69-b2e5-499c-b3c5-0ce28d5efed1/" width="729"/></p>
+<p><strong>Example 2: </strong><em>after user A sends a message</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat message" height="460" name="image.png" src="https://ucarecdn.com/df457c26-102d-4f4f-92c5-a6ee58836f13/" width="731"/></p>
+<p><strong>Example 3: </strong><em>after the second user inputs username "B user" and opens the chat</em></p>
+<p style="text-align: center;"><img alt="java websockets public chat message list" height="465" name="image.png" src="https://ucarecdn.com/c8f159d5-1d66-4a48-a4cf-38da93eed222/" width="736"/></p>
+<p><strong>Example 4: </strong><em>after User B presses "A user" in the user list</em></p>
+<p style="text-align: center;"><img alt="java websockets chat private message" height="464" name="image.png" src="https://ucarecdn.com/172f2e41-ea03-4c6c-b8bb-6f4a78da049b/" width="734"/></p>
+<p><strong>Example 5: </strong><em>after user B presses the "Public chat" button</em></p>
+<p style="text-align: center;"><img alt="java websockets chat private message list" height="465" name="image.png" src="https://ucarecdn.com/c8f159d5-1d66-4a48-a4cf-38da93eed222/" width="736"/></p>
+</div>

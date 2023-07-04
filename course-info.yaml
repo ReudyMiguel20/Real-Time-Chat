@@ -1,0 +1,13 @@
+type: hyperskill
+title: Real-time Chat
+language: English
+summary: "<p>Get acquainted with WebSockets and create a simple multi-user chat application.\
+  \ The app will support public chats where all users of the app can send and see\
+  \ messages, and private chat between two app users.</p><br/><br/>Learn more at <a\
+  \ href=\"https://hyperskill.org/projects/313?utm_source=ide&utm_medium=ide&utm_campaign=ide&utm_content=project-card\"\
+  >https://hyperskill.org/projects/313</a>"
+programming_language: Java
+programming_language_version: 11
+content:
+- Real-time Chat
+mode: Study

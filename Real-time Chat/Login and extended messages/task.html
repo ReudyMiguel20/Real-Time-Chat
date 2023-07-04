@@ -1,0 +1,31 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>In this stage, every user of the app will be prompted to input a username after they open a page. Only after a user inputs a username, they will be able to chat. You'll also improve the structure of messages. Starting from this stage, every sent message should contain the sender's username and the date of a message. This helps to distinguish the author of the message and a step to implementing a private chat.</p>
+<p>Moreover, when a user joins the chat, they don't receive any messages that were sent before they logged. You'll implement a mechanism that sends messages to a user after they join the chat.</p>
+<h5 id="theory">Theory</h5>
+<p>Here is a link to the <a href="https://iq.opengenus.org/intro-to-fetch-api/" rel="noopener noreferrer nofollow" target="_blank">Open Genus</a> tutorial that shows how to use the JS <code class="java">fetch</code> method to get data from an endpoint. The method <code class="java">fetch</code> can also be used to send <code class="java">POST</code> requests. It can help you with stage and the following stages.</p>
+<h5 id="objectives">Objectives</h5>
+<ul>
+<li>By default, the elements implemented in the previous stage (the send message button, the input message field, the message container) should not be visible after opening the page. Instead, when a user opens the page, they should see one input field with the ID <code class="java">input-username</code> and the send button with the <code class="java">send-username-btn</code> ID. After a user inputs a username and presses the send button, the input field and the button should become hidden, and the user should see the page as in the previous stage. See examples for more details;</li>
+<li>Change the structure of messages. Tag with the <code class="java">messages</code> ID should now store elements with the <code class="java">message-container</code> class. Every <code class="java">message-container</code> should contain an element with the <code class="java">sender</code> class, an element with the <code class="java">date</code> class, and an element with the <code class="java">message</code> class. Date can have any format, but should have a length not less than 5;</li>
+<li>After a new user joins the chat, they should receive all public messages that were sent before they joined.</li>
+</ul>
+<p>Optional:</p>
+<ul>
+<li>Additionally, you can add some input validation and allow only unique usernames. Tests will not check whether a username is unique or not.</li>
+</ul>
+<h5 id="examples">Examples</h5>
+<p><strong>Example 1: </strong><em>after user A opens the chat page</em></p>
+<p style="text-align: center;"><img alt="java websockets chat login" height="293" name="image.png" src="https://ucarecdn.com/d9f76b21-8eb2-4995-bc51-8e4c7fa4b910/" width="779"/></p>
+<p><strong>Example 2: </strong><em>after user A inputs the username "A user" and presses the send button</em></p>
+<p style="text-align: center;"><img alt="java websockets chat new user" height="576" name="image.png" src="https://ucarecdn.com/e12e9717-2125-4d2b-94d5-eedfb443b99f/" width="714"/></p>
+<p><strong>Example 3: </strong><em>after user A sends a message</em></p>
+<p style="text-align: center;"><img alt="java websockets chat user message" height="577" name="image.png" src="https://ucarecdn.com/69cf9a4b-ade1-4d0d-bbd0-09f5cd7a3326/" width="714"/></p>
+<p><strong>Example 4: </strong><em>user B inputs the username "B user" and presses the send button</em></p>
+<p style="text-align: center;"><img alt="java websockets chat enter" height="577" name="image.png" src="https://ucarecdn.com/69cf9a4b-ade1-4d0d-bbd0-09f5cd7a3326/" width="714"/></p>
+<p><strong>Example 5: </strong><em>after user B sends a message</em></p>
+<p><em>User A:</em></p>
+<p style="text-align: center;"><img alt="java websockets chat user communication" height="581" name="image.png" src="https://ucarecdn.com/4bb1bc70-1031-4208-a465-78f71a9e1db1/" width="718"/></p>
+<p><em>User B (same):</em></p>
+<p style="text-align: center;"><img alt="java websockets chat user communication" height="581" name="image.png" src="https://ucarecdn.com/4bb1bc70-1031-4208-a465-78f71a9e1db1/" width="718"/></p>
+</div>
