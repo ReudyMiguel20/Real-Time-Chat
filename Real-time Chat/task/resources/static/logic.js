@@ -1,14 +1,14 @@
 //Variable for chatbox
-let chatbox = document.getElementById("chatbox");
+const chatbox = document.getElementById("chatbox");
 
 //Variable for Messages container
-let messageContainer = document.getElementById("messages");
+const messageContainer = document.getElementById("messages");
 
 //Variable to manage the button
-let buttonSend = document.getElementById("send-msg-btn");
+const buttonSend = document.getElementById("send-msg-btn");
 
 //Variable for the input text
-let messageInput = document.getElementById("input-msg");
+const messageInput = document.getElementById("input-msg");
 
 //Grab the text inside the input text and return it
 function getMessage() {
@@ -57,3 +57,39 @@ buttonSend.addEventListener("click", function () {
     clearInputText();
     scrollToBottom();
 })
+
+let stompClient = null;
+
+function connect() {
+    const socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function () {
+        stompClient.subscribe('/topic/messages', function (message) {
+            showMessage(message.body);
+        });
+    });
+}
+
+function sendMessage() {
+    const message = getMessage();
+    stompClient.send('/app/message', {}, message);
+}
+
+function showMessage(message) {
+    const messageSent = document.createElement("div");
+    const horizontalLine = document.createElement("hr");
+
+    messageSent.textContent = message;
+    messageSent.style.padding = "5px";
+    messageSent.style.fontFamily = "Comic Sans MS";
+
+    messageSent.setAttribute("class", "message");
+
+    messageContainer.appendChild(messageSent);
+    messageContainer.appendChild(horizontalLine);
+    scrollToBottom();
+}
+
+// Call connect() to establish the WebSocket connection
+connect();

@@ -10,6 +10,10 @@
 </head>
 
 <body>
+<div id="title-section">
+    <h1 class="messenger-title">Messenger</h1><h3 class="messenger-title-description">chat with others online</h3>
+</div>
+
 <div id="chatbox">
     <div id="messages">
 
@@ -17,10 +21,12 @@
 
     <div id="input-message">
         <input type="text" id="input-msg" placeholder="Type a message">
-        <button id="send-msg-btn" onclick="getMessage()"><img src="send-message-btn.png" alt=""></button>
+        <button id="send-msg-btn" type="submit" onclick="getMessage()"><img src="send-message-btn.png" alt=""></button>
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="logic.js"></script>
 </body>
 

@@ -47,7 +47,7 @@ function clearInputText() {
 
 //Scroll to bottom
 function scrollToBottom() {
-   chatbox.scrollTop = chatbox.scrollHeight;
+   messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
 //Create an event on click that involves the button and updating the message to the div
@@ -57,3 +57,89 @@ buttonSend.addEventListener("click", function () {
     clearInputText();
     scrollToBottom();
 })
+
+let stompClient = null;
+
+function connect() {
+    const socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function () {
+        stompClient.subscribe('/topic/messages', function (message) {
+            showMessage(message.body);
+        });
+    });
+}
+
+function sendMessage() {
+    const message = getMessage();
+    stompClient.send('/app/message', {}, message);
+}
+
+function showMessage(message) {
+    const messageSent = document.createElement("div");
+    const horizontalLine = document.createElement("hr");
+
+    messageSent.textContent = message;
+    messageSent.style.padding = "5px";
+    messageSent.style.fontFamily = "Comic Sans MS";
+
+    messageSent.setAttribute("class", "message");
+
+    messageContainer.appendChild(messageSent);
+    messageContainer.appendChild(horizontalLine);
+    scrollToBottom();
+}
+
+// Call connect() to establish the WebSocket connection
+connect();
+
+
+//var stompClient = null;
+//var username = null;
+//
+//
+//function connect(event) {
+// username = "erd";
+//
+// var socket = new SocketJS('/ws');
+// stompClient = Stomp.over(socket);
+//
+// stompClient.connect({}, onConnect, onerror);
+//
+// event.preventDefault();
+//}
+//
+//function onConnected() {
+//stompClient.suscribe('topic/public', onMessageReceived);
+//
+//}
+//
+//function onError() {
+//connectingElement.textContent = 'Could not connect';
+//}
+//
+//function onMessageReceived() {
+//
+//}
+//
+//function sendMessage(event) {
+//var messageContent = getMessage();
+//
+//if (messageContent && stompClient) {
+//var chatMessage = {
+//content: messageContent
+//};
+//stompClient.send('app/chat.sendMessage',
+//{},
+//JSON.stringify(chatMessage)
+//);
+//messageInput.content = '';
+//}
+//
+//event.preventDefault
+//}
+//
+//
+//buttonSend.addEventListener('submit', connect, true);
+//messageContainer.addEventListener('submit', sendMessage, true);

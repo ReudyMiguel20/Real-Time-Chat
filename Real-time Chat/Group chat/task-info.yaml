@@ -426,6 +426,15 @@ files:
 - name: resources/static/send-message-btn.png
   visible: true
   learner_created: true
+- name: src/chat/WebSocketConfig.java
+  visible: true
+  learner_created: true
+- name: src/chat/ChatController.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24560#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Wed, 05 Jul 2023 01:55:17 UTC"
+record: 3
